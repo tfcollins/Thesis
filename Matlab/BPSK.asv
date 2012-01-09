@@ -1,9 +1,9 @@
-%% Todo: 
-% Work on receiver
-% Move channel to channel.m
-%% Bugs
-% 
-
+%% Goals: 
+% 1.) Generate BPSK Signal
+% 2.) Modulate and add pulse shape to signal
+%       Upsample signal
+%       SRRC
+% 3.) 
 clear all;clc;
 
 %% Generate BPSK Signal
@@ -50,7 +50,6 @@ bpsk=gain*cos(2*pi*RF_fq*time+(bits_shaped-1)*pi);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Channel
-%% Most will be moved to channel.m
 
 %Add interfering signals
 RF_fq_KND_1=2.6e9;
@@ -66,7 +65,8 @@ z=bpsk+KND_1'+KND_2';
 plotspec(z,1/fs);
 figure;
 plotspec(bpsk,1/fs);
-
+figure;
+plotspec(bpsk,1/fs);
 
 
 % add noise to signal
