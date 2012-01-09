@@ -1,0 +1,3 @@
+Travis Collins
+received his B.S. degree in Electrical and Computer Engineering from Worcester Polytechnic Institute in 2011.
+He is currently pursing his master's degree in Electrical and Computer Engineering, focused in signal processing on software defined radio implementations.

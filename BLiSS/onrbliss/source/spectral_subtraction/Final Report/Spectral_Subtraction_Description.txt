@@ -1,0 +1,37 @@
+Robet Over
+7/20/11
+Professor Wyglinski
+Professor Anderson
+USNA BliSS
+
+Spectral Subtraction
+
+This paper describes the methods for performing spectral subtraction that were used to facilitate the unjamming of received signals. The methods described below were used as a small part of the BliSS project, a project whose purpose is to render a jammed signal interoperable. Spectral subtraction is a method for removing an interfering signal from a received signal. The algorithms described below, used to perform spectral subtraction, assumed the knowledge of both the desired signal’s phase as well as the average PSD of the interfering signal. 
+
+The simplest form of Spectral Subtraction is to convert a signal x into Power Spectral Density or PSD. PSD is found by taking the square of the absolute value of the frequency domain signal. The algorithm for conversion is displayed below
+
+X_PSD = (|dft(x(t))|)^2 [1]
+
+Once the received signal and the interfering signal have been converted into PSD the interfering signal will be subtracted from the desired signal to leave only the desired signal. 
+
+X_PSD_received – Y_PSD_interfering = Z_PSD_desired [1]
+
+This method is the basis for all spectral subtraction but its simplicity lends to its inaccuracy. Once the subtraction has taken place the received signal is still not entirely interoperable. This is because the interfering signals leave behind irregular peaks of PSD that have not been completely subtracted. These errors are called called musical noise. As Spectral Subtraction was originally intended for use in audio implementation the name musical noise came from poorly subtracted noise that interfered with the output of the signal. The result was an irregular interference at certain frequency producing a somewhat musical effect. 
+
+Much of Spectral Subtraction is concerned with reducing musical noise. The method for musical noise reduction described in this paper uses the application of two constants. These are Alpha and Beta. This spectral subtraction algorithm is similar to the one above using the application of direct subtraction in the PSD. 
+
+X_PSD_received – Alpha * Y_PSD_interfering = Z_PSD_desired [2]
+If Z_PSD_desired < Beta * Y_PSD_interfering
+Then Z_PSD_desired = Beta * Y_PSD_interfering
+
+This algorithm will level out the subtraction of the signals reducing the musical noise. Though this solution is not an elegant one it is effective if the right values of Alpha and Beta are used. In the simulations  provided for the BliSS project the ratio of musical noise to signal interoperability was best when Alpha >= 10 and when 0.2 <= Beta >= 0.05. 
+
+In addition to this algorithm if the subtracted signal goes below the value of 0 then it can interfere with the received signal.
+
+If Z_PSD_desired < 0	[1]
+Then Z_PSD_desired = 0
+
+References:
+[1]Berouti, M., Makhoul, J., Schwartz, R., Enhancement of Speech Corruption by Acoustic noise, Bolt Beranek and Newman Inc., Cambridge, Mass. <http://ieeexplore.ieee.org/xpls/abs_all.jsp?tp=&arnumber=1170788>
+[2]Kamath, Sunil Devdas, A Multi-Band Spectral Subtraction Method for Speech Enhancement, 2001, <http://www.utdallas.edu/~loizou/thesis/sunil_ms_thesis.pdf>
+

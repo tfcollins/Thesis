@@ -1,0 +1,29 @@
+The transmitter will take an input from a locally stored file and transmit it on the desired frequency using DBPSK. The input file will be a text file containing the desired message, however due to the bytewise interpretation of the file, theoretically any file type should be compatible.
+
+After taking the input data, the transmitter will packetize the data and transmit it on the desired frequency. This implementation (simple_tx) does not include error correction, however this can be added if required. 
+
+
+
+Input
+
+File containing data to be sent. Data sent bytewise.
+
+Output
+
+RF Out of USRP2, DPSK
+
+Properties
+
+Location of  data file
+Desired transmit frequency
+
+Function
+
+The transmitter will read input from a precoded file, modulate it using DPSK and transmit the data on the desired frequency. 
+
+Testing
+
+Simple DPSK receiver with single antenna directly connected to the USRP2 will be used to verify proper data encoding, modulation, and transmission.
+
+
+

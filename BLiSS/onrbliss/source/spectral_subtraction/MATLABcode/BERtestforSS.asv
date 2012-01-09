@@ -1,0 +1,80 @@
+% More Complicated Spectral Subtraction Test for Bit Error Rate
+
+Fs = 3000;
+Ts = 1/Fs;
+t = 0:Ts:1;
+
+% Signal to transmit
+n = randi([-1 1],length(t),1);
+for s=1:length(t)
+    if n(s)==0
+        n(s)=1;
+    end
+end
+x1 = 10*n';    %.*cos(2*pi*2000*t);
+x2 = x1.*cos(2*pi*30*t);
+
+y = x1+x2;  % awgn(x1+x2, .1);
+
+omega = unwrap(angle(fft(y)));
+omega2 = unwrap(angle(fft(x2)));
+
+
+Sy = (fft(y).*exp(-1i*2*pi*omega)).^2;
+Sx2 = (fft(x2).*exp(-1i*2*pi*omega2)).^2;
+
+% Perform Spectral Subtraction
+Sx1_subd = Sy-abs(Sx2);
+
+for s=1:length(t)
+    if Sx1_subd(s)<0
+        Sx1_subd(s)=0;
+    end
+end
+
+x1_subd = ifft(sqrt(Sx1_subd).*exp(1i*omega*2*pi));
+
+fl=500; 
+ff=[0 .005 .006 1];                 % BPF center frequency at .4
+fa=[1 1 0 0];                   % which is twice f_0
+h=firpm(fl,ff,fa);              % BPF design via firpm
+n_subd=filter(h,1,x1_subd);  % filter to give preprocessed r
+
+for s=1:length(n)
+    if n_subd(s)>0
+        n_subd(s)=1;
+    else
+        n_subd(s)=-1;
+    end
+end
+
+numError=0;
+for s=1:length(n)
+    if n_subd(s) ~= n(s)
+        numError = numError+1;
+    end
+end
+
+numError
+
+figure(1),
+subplot(4,1,1),
+plot(-1500:1500, abs(fft(x1)))
+title('Orriginal Modulated Signal')
+subplot(4,1,2),
+plot(-1500:1500, abs(fft(y)))
+title('Interfering Signal')
+subplot(4,1,3),
+plot(-1500:1500, abs(fft(x1_subd)))
+title('Subtracted Signal')
+subplot(4,1,4),
+plot(-1500:1500, abs(fft(n_subd)))
+title('Signal Filtered');
+
+figure(2)
+subplot(2,1,1)
+plot(x1_subd)
+title('Recieved Data')
+subplot(2,1,2)
+plot(-1500:1500, abs(fft(x1_subd)))
+title('Subtracted Signal')

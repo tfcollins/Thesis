@@ -1,0 +1,31 @@
+The Antenna Subset Selection block (antss) will determine the best combination of antennas based on signal characteristics returned from an outside source (in this case, the BliSS block). The signal characteristics passed into the antss block will consist of Signal to Noise Ratio (SNR), bit error rate (BER), and a channel estimator. 
+
+The antss block will initialize with the signal characteristics set to specific initialization values outside of the standard range. The block will then cycle through all antenna combinations and record the associated characteristics for each configuration. Once all configurations have been attempted, the optimal configuration will be chosen through the weighted average of the channel characteristics for all given available channels.
+
+The antss block will provide the functionality to select the best combination of inputs to the receiver to match the number of available inputs. Calling the "work()" function will configure the AntSS board with the best available inputs.
+
+The antss block will be scalable for M antennas and N RF inputs, though this particular implementation will be tested at M=4 and N=2.
+
+
+
+Inputs
+
+*characteristics, a pointer to the struct "charac" from the BLISS block which will contain 3 floats, SNR, BER, and EST (the fading channel estimate). These floats will be valued from 0 to 1, with 0 being the worse, and 1 being the most optimal, as described in the mid project report.
+
+2 integer values, ant and rx, the number of antennas and rf inputs
+
+3 floats, snr, ber, and est, the weight values for each of the channel characteristics. These weights can have any value, only their relationship to each other is significant.(For example, the weights 5,1,1 and 25,5,5 or .5,.1,.1 will all have the same effect)
+
+Outputs
+
+The AntSS block will select the best configuration and apply this configuration to the AntSS block upon the calling of work().
+
+
+Function
+
+The AntSS Block will initialize with all signal characteristics defined out of bounds. It will cycle through all available antenna configurations, storing the signal characteristic data for each configuration until all combinations have been measured. The block will then select the most ideal configuration and use that configuration until a change is requested.
+
+
+Testing
+
+The test code, provided in test.cc first initializes the gr_antss block with random signal characteristics do demonstrate the proper handling of data from a parent class. The second portion of the code makes use of a special demo() function which is identical to work() except that the values for channel characteristics are generated within gr_antss instead of being passed from the parent. This is to simplify the test, as real world values of characteristics as passed from BLISS will be varying in real time.

@@ -1,0 +1,34 @@
+
+Fs = 4000;
+t = 0:1/Fs:1;
+
+n = randi([-1 1],length(t),1);
+for s=1:length(t)
+    if n(s)==0
+        n(s)=1;
+    end
+end
+
+x = n.*sin(2*pi*100*t).*exp(-2*pi*t);
+
+Omega = unwrap(angle(x));
+
+figure(1),
+subplot(2,1,1),
+plot(x),
+subplot(2,1,2),
+plot(abs(fft(x)));
+
+PSDx = (abs(fft(x))).^2;
+
+x_2 = ifft(sqrt(PSDx)).*exp(j*2*pi*Omega);
+
+figure(2),
+subplot(2,1,1)
+plot(x)
+hold on
+plot(real(x_2),'r')
+subplot(2,1,2)
+plot(abs(fft(x)))
+hold on
+plot(abs(fft(x_2)),'r');

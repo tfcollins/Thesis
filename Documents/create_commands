@@ -1,0 +1,5 @@
+create latex document:
+latex sample1.tex
+
+create pdf:
+pdflatex sample1.tex

@@ -1,0 +1,36 @@
+%Spectral Subtraction Implementation Using Pulse Shapes in Frequency Domain
+
+% x is a square root raised cosine pulse in the time domain
+x = srrc(1000,.5,1);
+
+% y is a hamming pulse in the time domain
+y = hamming(2001);
+
+z = x'+y;
+
+m = z;%awgn(z,.001);
+
+precision = 10000;
+
+Y = fft(y,precision);
+M = fft(m,precision);
+
+X_SS = M-Y;
+
+x_SS = ifft(X_SS,precision);
+
+figure(1)
+subplot(7,1,1)
+plot(abs(fft(x)))
+subplot(7,1,2)
+plot(abs(fft(y)))
+subplot(7,1,3)
+plot(abs(fft(x)))
+subplot(7,1,4)
+plot(m)
+subplot(7,1,5)
+plot(abs(M))
+subplot(7,1,6)
+plot(abs(X_SS))
+subplot(7,1,7)
+plot(x_SS(1:2001))

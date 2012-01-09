@@ -1,0 +1,64 @@
+BLIND SOURCE SEPARATION
+
+	The blind source separation (BliSS) block is the final step in the process to take place after antenna selection and spectral subtraction. Its main function is to estimate the wireless channels and return the estimate, along with channel characteristics (SNR, BER), to the antenna selection block. Preceding this, the antenna selection will select the most optimal antennas for the current environment, and the spectral subtraction will remove any unwanted signals.
+	At system startup, the best antennas are unknown and must be initialized. The antennas will be cycled through, resulting in different channel paths yielding different characteristics. To determine the best antennas, the end result of the system will include these channel characteristics. This information will be fed back to the antenna selection block, which will use that information to activate the antennas with the best received signals.
+	When the system is initialized with the best antennas selected, this data will continue to be sent to the antenna selection block to make sure the current antenna configuration is still providing the best performance.
+	The transmitted signal (x) will consist of the data (d) added to the training sequence, t. 
+       
+	x = d + t
+
+	After being transmitted through a wireless channel, the received signal (y) will be this same signal (x) combined with the channel (H) and some added noise (z).
+
+	y = Hx + z
+	y = H(d+t) + z
+	y = Hd + Ht + z
+	
+	A cyclic prefix is used to add a repetition of the end of the packet to the beginning of it. This allows the channel to be modeled as a circular matrix through the properties of convolution.
+
+	y[n] = H[l]*x[n-l]
+
+	Since the training data is known to the receiver, the channel matrix can be estimated and modeled as an MxM circular matrix, where M is the size of the data block after adding the cyclic prefix.
+
+	L = order of channel
+	N = size of data block
+	M = N + L
+
+	After the channel has been modeled, the data can then be extracted and decoded.
+
+Ghogho, M., McLernon, D., Alameda-Hernandez, E., Swami, A., "Channel Estimation and Symbol Detection for Block Transmission Using Data-Dependent Superimposed Training", IEEE Signal Processing Letters, Vol. 12, No. 3, March 2005
+
+================================================================
+SUMMARY
+
+Inputs
+Received signals with unwanted spectra subtracted
+
+Outputs
+Data signals
+Channel characteristics
+
+*NOTE: 
+antss expects a struct of {ber,snr,est}, but it should not require the channel estimate itself, only the characteristics of it (such as the MSE)
+If antss does need the channel estimate, it should be taken as an array, not individual values, since the bliss algorithm requires the entire packet to be received and cannot operate in sample-by-sample real-time
+
+
+================================================================
+HOW TO USE MATLAB/C++ SIMULATOR
+
+Make sure 'transmitter.m' and 'bliss.cpp' are in same folder
+Requires Armadillo C++ library (arma.sourceforge.net)
+
+Open 'transmitter.m'
+Set variables
+Run
+3 files will be written
+'data.txt' contains variables that the receiver needs to know, and the signal vector (x) that is "transmitted"
+'dftmtx.txt' contains DFT matrices to be used by the receiver
+'channel.txt' contains the actual simulated channel vector (h) to be used by the "receiver" to calculate the squared error of the channel estimate
+
+'bliss.cpp' will be compiled and run
+'chanest.txt' will be written and contains the channel estimate, and the squared error
+
+Both 'transmitter.m' and 'bliss.cpp' will estimate the channel using the same algorithm
+MATLAB will return plots of the estimates at each SNR value (if the PLOT_ESTIMATES flag is set) and a plot of the MSE of each estimates over the range of SNR values specified
+
