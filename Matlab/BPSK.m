@@ -53,14 +53,15 @@ bpsk=gain*cos(2*pi*RF_fq*time+(bits_shaped-1)*pi);
 %% Most will be moved to channel.m
 
 %Add interfering signals
-RF_fq_KND_1=2.6e9;
-RF_fq_KND_2=2.2e9;
+RF_fq_KND_1=3.6e9;
+RF_fq_KND_2=1.2e9;
 
 KND_1=generate_random_signal(RF_fq_KND_1,length(bits),fs);
 KND_2=generate_random_signal(RF_fq_KND_2,length(bits),fs);
 
 %Add signals together
-z=bpsk+KND_1'+KND_2';
+o_gain=1/5;
+z=bpsk+(KND_1'+KND_2')*o_gain;
 
 %plots
 plotspec(z,1/fs);
@@ -82,7 +83,7 @@ precision = 20*length(bits);
 
 %find other signals
 %###DO LATER
-
+t=time;
 % generate estimate of known signals
 EST_data = upsample(randi([0,1], length(bits),1),10);
 EST_y_data = conv(pulse_srrc,EST_data);
@@ -107,7 +108,7 @@ Alpha_MN = 30;  % values > 10
 Beta_MN = 0.2; % values betweeen 0.05 and 0.2;
 
 % Here the spectral subtraction takes place
-X_EST_psd = M_psd - Alpha_MN*Y_psd;
+X_EST_psd = M_psd - Alpha_MN*Y_psd';
 
 % These loops reduce the impact of musical noise on the signal
 for i = 1:length(X_EST_psd)
@@ -146,27 +147,27 @@ x_SS_data = 2*downsample(conv(X_filt, pulse_srrc),10)/100;
 
 numErrors = 0;
 
-for i=51:length(data)+50
+for i=51:length(bits)+50
     if x_SS_data(i)>0
         x_SS_data(i) = 1;
     else
         x_SS_data(i) = -1;
     end
-    if x_SS_data(i)~=data(i-50)
+    if x_SS_data(i)~=bits(i-50)
         numErrors=numErrors+1;
     end
 end
 
-BitError = numErrors/length(data);
-
+BitError = numErrors/length(bits);
+disp(['Bit Error=',num2str(BitError)]);
 
 % Here the process is plotted
 figure(1),
 subplot(5,1,1),
-plot(upsamp_data),
+plot(upsamp_bits),
 title('Original Data');
 subplot(5,1,2),
-plot(abs(fft(x_Modul))),
+plot(abs(fft(bpsk))),
 title('Desired Signal');
 subplot(5,1,3),
 plot(abs(M_fft)),
@@ -175,13 +176,13 @@ subplot(5,1,4),
 plot(abs(X_fft)),
 title('Subtracted result');
 subplot(5,1,5),
-plot(real(x_SS_data(51:dataLength+50))),
+plot(real(x_SS_data(51:length(bits)+50))),
 title('Time Domain Data w/ Pulse Shape');
 
 % This figure shows the retrieved signal in blue and the orriginal in red
 figure(2)
-plot(data,'r.')
+plot(bits,'r.')
 hold on
-plot(real(x_SS_data(51:dataLength+50)),'.')
+plot(real(x_SS_data(51:length(bits)+50)),'.')
 title('Comparison of Original and Retrieved Data');
 
