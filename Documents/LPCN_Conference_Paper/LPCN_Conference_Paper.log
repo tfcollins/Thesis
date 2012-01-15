@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=latex 2011.9.16)  12 JAN 2012 12:45
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=latex 2011.9.16)  14 JAN 2012 21:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -252,56 +252,17 @@ File: omsptm.fd
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 30.
-
-
-LaTeX Warning: Citation `two' on page 1 undefined on input line 41.
-
-
-LaTeX Warning: Citation `three' on page 1 undefined on input line 41.
-
-
-LaTeX Warning: Citation `five' on page 1 undefined on input line 41.
-
 File: concept_diagram.eps Graphic file (type eps)
+
 <concept_diagram.eps>
-
-LaTeX Warning: Citation `six' on page 1 undefined on input line 50.
-
-
-LaTeX Warning: Citation `six' on page 1 undefined on input line 50.
-
-
-LaTeX Warning: Citation `thirteen' on page 1 undefined on input line 52.
-
-
 Underfull \vbox (badness 2698) has occurred while \output is active []
 
  [1
 
 
 ]
-LaTeX Font Info:    Font shape `OT1/ptm/bx/sc' in size <8> not available
-(Font)              Font shape `OT1/ptm/b/sc' tried instead on input line 68.
-
-
-LaTeX Warning: Citation `eight' on page 2 undefined on input line 68.
-
-
-LaTeX Warning: Citation `six' on page 2 undefined on input line 68.
-
-
-LaTeX Warning: Citation `nine' on page 2 undefined on input line 68.
-
-
-LaTeX Warning: Citation `ten' on page 2 undefined on input line 68.
-
-
-LaTeX Warning: Citation `eleven' on page 2 undefined on input line 68.
-
-
-LaTeX Warning: Citation `fourteen' on page 2 undefined on input line 68.
-
 File: system_diagram.eps Graphic file (type eps)
+
 <system_diagram.eps> [2]
 File: cognitive_para.eps Graphic file (type eps)
  <cognitive_para.eps>
@@ -314,12 +275,8 @@ Missing character: There is no ô in font ptmr7t!
 File: woot.eps Graphic file (type eps)
 
 <woot.eps>
-
-LaTeX Warning: Citation `twelve' on page 4 undefined on input line 130.
-
-
-LaTeX Warning: Citation `twelve' on page 4 undefined on input line 130.
-
+File: energy_con.eps Graphic file (type eps)
+ <energy_con.eps>
 Missing character: There is no Œ in font ptmr7t!
 Missing character: There is no © in font ptmr7t!
 Missing character: There is no ‚ in font ptmr7t!
@@ -328,14 +285,17 @@ Missing character: There is no ô in font ptmr7t!
 Missing character: There is no ‚ in font ptmr7t!
 Missing character: There is no Ä in font ptmr7t!
 Missing character: There is no ô in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no Ä in font ptmr7t!
-Missing character: There is no ú in font ptmr7t!
-Missing character: There is no ‚ in font ptmr7t!
-Missing character: There is no Ä in font ptmr7t!
-Missing character: There is no ù in font ptmr7t!
-[4]
-No file LPCN_Conference_Paper.bbl.
+ [4] (./LPCN_Conference_Paper.bbl
+Underfull \hbox (badness 3417) in paragraph at lines 38--41
+[]\OT1/ptm/m/n/8 D. Lagesse. (2009) Us news: Money. [On-
+ []
+
+
+Underfull \hbox (badness 3439) in paragraph at lines 38--41
+\OT1/ptm/m/n/8 line]. Avail-able: http://money.usnews.com/money/blogs/daves-
+ []
+
+)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -349,18 +309,14 @@ Before submitting the final camera ready copy, remember to:
 
 [5
 
-] (./LPCN_Conference_Paper.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+] (./LPCN_Conference_Paper.aux) ) 
 Here is how much of TeX's memory you used:
- 2167 strings out of 493630
- 31489 string characters out of 3143346
+ 2176 strings out of 493630
+ 31663 string characters out of 3143346
  93443 words of memory out of 3000000
- 5486 multiletter control sequences out of 15000+200000
- 29907 words of font info for 67 fonts, out of 3000000 for 9000
+ 5493 multiletter control sequences out of 15000+200000
+ 29248 words of font info for 66 fonts, out of 3000000 for 9000
  834 hyphenation exceptions out of 8191
- 32i,14n,28p,1646b,351s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 32i,14n,27p,1703b,351s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on LPCN_Conference_Paper.dvi (5 pages, 28760 bytes).
+Output written on LPCN_Conference_Paper.dvi (5 pages, 32204 bytes).

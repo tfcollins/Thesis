@@ -1,0 +1,78 @@
+This is BibTeX, Version 0.99d (TeX Live 2011)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: LPCN_Conference_Paper.aux
+The style file: IEEEtran.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: IEEEabrv.bib
+Database file #2: LPCN_Conference_Paper_refs2.bib.bib
+Warning--entry type for "eight" isn't style-file defined
+--line 25 of file LPCN_Conference_Paper_refs2.bib.bib
+Warning--entry type for "six" isn't style-file defined
+--line 54 of file LPCN_Conference_Paper_refs2.bib.bib
+Warning--entry type for "twelve" isn't style-file defined
+--line 68 of file LPCN_Conference_Paper_refs2.bib.bib
+-- IEEEtran.bst version 1.12 (2007/01/11) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Too many commas in name 1 of "Trevor Pering, Yuvraj Agarwal, , Rajesh Gupta, Roy Want" for entry six
+while executing---line 2411 of file IEEEtran.bst
+Too many commas in name 1 of "Trevor Pering, Yuvraj Agarwal, , Rajesh Gupta, Roy Want" for entry six
+while executing---line 2411 of file IEEEtran.bst
+Too many commas in name 1 of "G. Anastasi, M. Conti, E. Gregori, A. Passarella" for entry eight
+while executing---line 2411 of file IEEEtran.bst
+Too many commas in name 1 of "Christine E. Jones, Krishna M. Sivalingam, Prathima Agrawal, Jyh Cheng Chen" for entry ten
+while executing---line 2411 of file IEEEtran.bst
+Too many commas in name 1 of "Jose Gutierrez, Marco Naeve, Ed Callaway, Monique Bourgeois, Vinay Milter, Bob Heile" for entry eleven
+while executing---line 2411 of file IEEEtran.bst
+Too many commas in name 1 of "Jose Gutierrez, Marco Naeve, Ed Callaway, Monique Bourgeois, Vinay Milter, Bob Heile" for entry eleven
+while executing---line 2411 of file IEEEtran.bst
+Too many commas in name 1 of "Jose Gutierrez, Marco Naeve, Ed Callaway, Monique Bourgeois, Vinay Milter, Bob Heile" for entry eleven
+while executing---line 2411 of file IEEEtran.bst
+
+Done.
+You've used 11 entries,
+            4024 wiz_defined-function locations,
+            1234 strings with 16070 characters,
+and the built_in function-call counts, 5406 in all, are:
+= -- 427
+> -- 73
+< -- 31
++ -- 41
+- -- 12
+* -- 213
+:= -- 904
+add.period$ -- 21
+call.type$ -- 11
+change.case$ -- 11
+chr.to.int$ -- 69
+cite$ -- 11
+duplicate$ -- 420
+empty$ -- 489
+format.name$ -- 13
+if$ -- 1203
+int.to.chr$ -- 0
+int.to.str$ -- 11
+missing$ -- 81
+newline$ -- 62
+num.names$ -- 10
+pop$ -- 212
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 430
+stack$ -- 0
+substring$ -- 169
+swap$ -- 301
+text.length$ -- 8
+text.prefix$ -- 0
+top$ -- 5
+type$ -- 11
+warning$ -- 0
+while$ -- 22
+width$ -- 13
+write$ -- 119
+(There were 7 error messages)
