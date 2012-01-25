@@ -40,25 +40,30 @@ import sys
 #raw_input('Attach and press enter: ')
 
 class my_top_block(gr.top_block):
+    # Constructor of this class
     def __init__(self, demodulator, rx_callback, options):
-        gr.top_block.__init__(self)
+        gr.top_block.__init__(self) # Parent constructor called
 
+	# Setup options if not chosen on command-line
         if(options.rx_freq is not None):
             # Work-around to get the modulation's bits_per_symbol
             args = demodulator.extract_kwargs_from_options(options)
+	    print args
             symbol_rate = options.bitrate / demodulator(**args).bits_per_symbol()
 
+	    # Set parameters for receiver, class found in uhd_interface.py
             self.source = uhd_receiver(options.args, symbol_rate,
                                        options.samples_per_symbol,
                                        options.rx_freq, options.rx_gain,
                                        options.spec, options.antenna,
                                        options.verbose)
             options.samples_per_symbol = self.source._sps
-
+	# If transmission sources is a file
         elif(options.from_file is not None):
             sys.stderr.write(("Reading samples from '%s'.\n\n" % (options.from_file)))
             self.source = gr.file_source(gr.sizeof_gr_complex, options.from_file)
-        else:
+	# Transmission source
+	else:
             sys.stderr.write("No source defined, pulling samples from null source.\n\n")
             self.source = gr.null_source(gr.sizeof_gr_complex)
 
