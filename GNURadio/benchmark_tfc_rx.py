@@ -39,7 +39,7 @@ import sys
 #print os.getpid()
 #raw_input('Attach and press enter: ')
 
-class my_top_block(gr.top_block):
+class my_top_block(gr.top_block):#gr.top_block=generic countainer class
     # Constructor of this class
     def __init__(self, demodulator, rx_callback, options):
         gr.top_block.__init__(self) # Parent constructor called
