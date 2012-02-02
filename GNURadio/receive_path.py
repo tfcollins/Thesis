@@ -1,24 +1,5 @@
 #!/usr/bin/env python
 #
-# Copyright 2005-2007,2011 Free Software Foundation, Inc.
-# 
-# This file is part of GNU Radio
-# 
-# GNU Radio is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 3, or (at your option)
-# any later version.
-# 
-# GNU Radio is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with GNU Radio; see the file COPYING.  If not, write to
-# the Free Software Foundation, Inc., 51 Franklin Street,
-# Boston, MA 02110-1301, USA.
-# 
 
 from gnuradio import gr, gru
 from gnuradio import eng_notation
@@ -37,6 +18,9 @@ class receive_path(gr.hier_block2):
 				gr.io_signature(1, 1, gr.sizeof_gr_complex),
 				gr.io_signature(0, 0, 0))
         
+	#########################################
+	#   Variables
+	#########################################
         options = copy.copy(options)    # make a copy so we can destructively modify
 
         self._verbose     = options.verbose
@@ -48,6 +32,10 @@ class receive_path(gr.hier_block2):
         # Get demod_kwargs
         demod_kwargs = self._demod_class.extract_kwargs_from_options(options)
 
+
+	#########################################
+	#   Blocks
+	#########################################
         # Build the demodulator
         self.demodulator = self._demod_class(**demod_kwargs)
         
@@ -75,6 +63,10 @@ class receive_path(gr.hier_block2):
         # Display some information about the setup
         if self._verbose:
             self._print_verbage()
+
+	#########################################
+	#    CONNECTIONS
+	#########################################
 
 	# connect block input to channel filter
 	self.connect(self, self.channel_filter)

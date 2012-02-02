@@ -41,7 +41,7 @@ import sys
 
 class my_top_block(gr.top_block):
     def __init__(self, demodulator, rx_callback, options):
-        gr.top_block.__init__(self)
+        gr.top_block.__init__(self) # create gnuradio contra
 
         if(options.rx_freq is not None):
             # Work-around to get the modulation's bits_per_symbol
@@ -65,7 +65,7 @@ class my_top_block(gr.top_block):
         # Set up receive path
         # do this after for any adjustments to the options that may
         # occur in the sinks (specifically the UHD sink)
-        self.rxpath = receive_path(demodulator, rx_callback, options) 
+        self.rxpath = receive_path(demodulator, rx_callback, options)# Pass 
 
         self.connect(self.source, self.rxpath)
 
@@ -130,6 +130,7 @@ def main():
 
     # build the graph
     tb = my_top_block(demods[options.modulation], rx_callback, options)
+
 
     r = gr.enable_realtime_scheduling()
     if r != gr.RT_OK:
