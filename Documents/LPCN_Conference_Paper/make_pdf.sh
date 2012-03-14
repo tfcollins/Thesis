@@ -6,4 +6,8 @@ dvips *.dvi
 rm *.dvi
 ps2pdf *.ps
 rm *.ps
+rm *.aux
+rm *.bbl
+rm *.log
+rm *.blg
 

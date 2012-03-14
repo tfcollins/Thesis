@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+<<<<<<< HEAD
+=======
+#
+>>>>>>> 8d49faa84f59bbacfa1e96f9d30a844fba01f641
 
 from gnuradio import gr, gru
 from gnuradio import eng_notation
@@ -17,6 +21,9 @@ class receive_path(gr.hier_block2):
 				gr.io_signature(1, 1, gr.sizeof_gr_complex),
 				gr.io_signature(0, 0, 0))
         
+	#########################################
+	#   Variables
+	#########################################
         options = copy.copy(options)    # make a copy so we can destructively modify
 
         self._verbose     = options.verbose
@@ -29,9 +36,15 @@ class receive_path(gr.hier_block2):
         demod_kwargs = self._demod_class.extract_kwargs_from_options(options)
 
 
+<<<<<<< HEAD
 	################################
 	#  Build Blocks
 	###############################
+=======
+	#########################################
+	#   Blocks
+	#########################################
+>>>>>>> 8d49faa84f59bbacfa1e96f9d30a844fba01f641
         # Build the demodulator
         self.demodulator = self._demod_class(**demod_kwargs)
         
@@ -59,6 +72,10 @@ class receive_path(gr.hier_block2):
         # Display some information about the setup
         if self._verbose:
             self._print_verbage()
+
+	#########################################
+	#    CONNECTIONS
+	#########################################
 
 	# connect block input to channel filter
 	self.connect(self, self.channel_filter)

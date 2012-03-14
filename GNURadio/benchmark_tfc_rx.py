@@ -42,7 +42,11 @@ import sys
 class my_top_block(gr.top_block):#gr.top_block=generic countainer class
     # Constructor of this class
     def __init__(self, demodulator, rx_callback, options):
+<<<<<<< HEAD
         gr.top_block.__init__(self) # Parent constructor called
+=======
+        gr.top_block.__init__(self) # create gnuradio contra
+>>>>>>> 8d49faa84f59bbacfa1e96f9d30a844fba01f641
 
 	# Setup options if not chosen on command-line
         if(options.rx_freq is not None):
@@ -70,7 +74,7 @@ class my_top_block(gr.top_block):#gr.top_block=generic countainer class
         # Set up receive path
         # do this after for any adjustments to the options that may
         # occur in the sinks (specifically the UHD sink)
-        self.rxpath = receive_path(demodulator, rx_callback, options) 
+        self.rxpath = receive_path(demodulator, rx_callback, options)# Pass 
 
         self.connect(self.source, self.rxpath)
 
@@ -135,6 +139,7 @@ def main():
 
     # build the graph
     tb = my_top_block(demods[options.modulation], rx_callback, options)
+
 
     r = gr.enable_realtime_scheduling()
     if r != gr.RT_OK:
