@@ -62,7 +62,7 @@ pulse_hamming = hamming(size*samples*2+1);
 y_data = conv(pulse_srrc,upsamp_data2);
 
 % Carrier frequency for interfering signal
-fo2 = 8e4-0e3;
+fo2 = 8e4-1e3;
 
 y_Modul = y_data.*cos(2*pi*t*fo2)';
 
@@ -92,6 +92,9 @@ X_fft = fft(x_Modul,precision);
 
 % Omega is the Phase of the desired signal
 Omega = angle(fft(x_Modul,precision));
+% Add noise to estimate
+Omega_Org=Omega;
+Omega = awgn(Omega,.1,'measured');
 
 % The signals are converted into PSD
 Y_psd = abs(Y_fft);
@@ -106,7 +109,9 @@ X_psd = abs(X_fft);
 X_fft = (X_psd).*exp(1i*Omega);
 x_SS = ifft(X_fft,precision);
 
-break;
+x_SS.*abs(x_SS)/max(abs(x_SS));
+%remove noise from calculation
+
 
 % The signal is modulated back down to base band
 t2 = 1/Fs:1/Fs:length(x_SS)/Fs;
@@ -115,11 +120,13 @@ X_BB = 2*x_SS.*cos(2*pi*t2*fo1)';
 % A filter is applied to remove any unwanted information outside the
 % desired signal
 
+if (1)
 fl=600; 
 ff=[0 .1 .11 1];
 fa=[1 1 0 0];
 h=firpm(fl,ff,fa);
 X_filt = filter(h,1,X_BB);
+end
 
 % x_SS_data is retrieved signal
 x_SS_data = 2*downsample(conv(X_filt, pulse_srrc),10)/100;
@@ -140,6 +147,7 @@ end
 BitError = numErrors/length(data);
 disp(['Bit Error=',num2str(BitError)]);
 
+
 % Here the process is plotted
 figure(1),
 subplot(5,1,1),
@@ -157,6 +165,12 @@ title('Subtracted result');
 subplot(5,1,5),
 plot(real(x_SS_data(51:dataLength+50))),
 title('Time Domain Data w/ Pulse Shape');
+
+figure(3),
+hold on;
+plot(abs(fft(x_Modul)));
+plot(abs(fft(y_Modul)),'r');
+hold off;
 
 % This figure shows the retrieved signal in blue and the orriginal in red
 figure(2)
