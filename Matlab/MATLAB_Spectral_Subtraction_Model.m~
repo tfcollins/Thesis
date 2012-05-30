@@ -7,8 +7,11 @@
 
 clear all;clc;
 
-%% Generate BPSK Signal
+
+
+%% Generate PAM Signal
 message='I grabbed a pile of dust, and holding it up, foolishly asked for as many birthdays as the grains of dust, I forgot to ask that they be years of youth.';
+
 
 % convert to bits
 bits=[];
@@ -16,25 +19,44 @@ for i=1:length(message)
     bits=[bits dec2bin(double(message(i)))];
 end
 
+
+
 bits_c=zeros(1,length(bits));
 for i=1:length(bits)
     bits_c(i)=str2num(bits(i));
 end
 bits=bits_c;
 
+
+% the signal to be transmitted
+data = 2*randint(10e3,1)-1;
+data2 = randi([-3,3], 10e3,1);
+bits=data;
+
+
 % Half the length of the srrc pulse
 size = 10;
 
 % amount of information to be sent
-dataLength = length(bits);
+%dataLength = length(bits);
+dataLength = length(data);
 
 % the signal to be transmitted
-data = bits'*2-1;           % Convert unipolar to bipolar
+%data = bits'*2-1;           % Convert unipolar to bipolar
 data2 = randi([-3,3], dataLength,1);
+data3 = randi([-2,2], dataLength,1);
 
 % upsamp_data is the signal after it has ben upsampled by 10
-upsamp_data = upsample(data,10);
+upsamp_data = zeros(1,length(data)*10);
+for i=0:length(data)-1
+    upsamp_data(i*10+1:i*10+10)=data(i+1);
+end
+upsamp_data=upsamp_data';
+%upsamp_data = upsample(data,10);
 upsamp_data2 = upsample(data2,10);
+upsamp_data3 = upsample(data3,10);
+
+%data=data(end:-1:1);
 
 % square root raised cosine pulse in the time domain
 samples = 10;   % Number of samples
@@ -52,7 +74,6 @@ Fs = 2e5;
 t = 1/Fs:1/Fs:length(x_data)/Fs;
 x_Modul = x_data.*cos(2*pi*t*fo1)';
 
-%% Channel
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -61,11 +82,14 @@ pulse_hamming = hamming(size*samples*2+1);
 
 % y_data is the interfering signal
 y_data = conv(pulse_srrc,upsamp_data2);
+z_data = conv(pulse_srrc,upsamp_data3);
+
 
 % Carrier frequency for interfering signal
-fo2 = 8e4-0e3;
+fo2 = fo1-25e3;
 
 y_Modul = y_data.*cos(2*pi*t*fo2)';
+z_Modul = z_data.*cos(2*pi*t*fo1)';
 
 % z is the combination of x_data and y_data providing the interference
 z = x_Modul+y_Modul;
@@ -75,7 +99,6 @@ m = awgn(z,.01);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Receiver
 
 % this defines the precision of the fft
 precision = 20*dataLength;
@@ -93,46 +116,80 @@ M_fft = fft(m,precision);
 
 % Omega is the Phase of the desired signal
 Omega = angle(fft(x_Modul,precision));
+%Omega = angle(fft(z_Modul,precision));
 
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Generate PSD's
 % The signals are converted into PSD
+%Welch
+%[Y_psd, F_y]=calc_psd(EST_y_Subtract,64,Fs,hanning(64));
+%[M_psd, F_m]=calc_psd(m,64,Fs,hanning(64));
+
+%Y_psd = Y_fft.*conj(Y_fft)/precision;
+%M_psd = M_fft.*conj(M_fft)/precision;
+
+%Y_psd=psd(EST_y_Subtract);
+%M_psd=psd(m);
+
 Y_psd = abs(Y_fft);
 M_psd = abs(M_fft);
 
+
+
 % Alpha and Beta are the values for the musical noise
 Alpha_MN = 30;  % values > 10
-Beta_MN = 0.2; % values betweeen 0.05 and 0.2;
+Beta_MN = 0.1; % values betweeen 0.05 and 0.2;
+
+
+%% Over-Subtraction
+
+before=moment(M_psd,4);
 
 % Here the spectral subtraction takes place
 X_EST_psd = M_psd - Alpha_MN*Y_psd;
 
-
-%% Over-Subtraction
+%% Smooth Valleys
 % These loops reduce the impact of musical noise on the signal
+% zero out to bias
 for i = 1:length(X_EST_psd)
     if X_EST_psd(i)<0
         X_EST_psd(i) = 0;
     end
 end
 
+% fill valleys
 for i = 1:length(X_EST_psd)
     if X_EST_psd(i) < Beta_MN*Y_psd(i)
         X_EST_psd(i) = Beta_MN*Y_psd(i);
     end
 end
 
-%% Demodulate
+after=moment(X_EST_psd,4);
+
+disp(['Musical Noise Ratio=',num2str(before/after)]);
+
 % Here X_SS is converted back into the frequency domain and time domain
 X_fft = (X_EST_psd).*exp(1i*Omega);
+%SX_fft = (X_EST_psd);
 x_SS = ifft(X_fft,precision);
 
 % The signal is modulated back down to base band
 t2 = 1/Fs:1/Fs:length(x_SS)/Fs;
 X_BB = 2*x_SS.*cos(2*pi*t2*fo1)';
 
-%% LP Filter
 % A filter is applied to remove any unwanted information outside the
 % desired signal
-
 fl=600; 
 ff=[0 .1 .11 1];
 fa=[1 1 0 0];
@@ -142,8 +199,9 @@ X_filt = filter(h,1,X_BB);
 % x_SS_data is retrieved signal
 x_SS_data = 2*downsample(conv(X_filt, pulse_srrc),10)/100;
 
-numErrors = 0;
 
+% Calculate Errors (Must duplicate to check for shifted signal)
+numErrors = 0;
 for i=51:length(data)+50
     if x_SS_data(i)>0
         x_SS_data(i) = 1;
@@ -158,7 +216,8 @@ end
 BitError = numErrors/length(data);
 disp(['Bit Error=',num2str(BitError)]);
 
-%% Evaluate
+
+
 % Here the process is plotted
 figure(1),
 subplot(5,1,1),

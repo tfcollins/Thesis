@@ -1,5 +1,5 @@
 %Spectral Subtraction Implementation Using Pulse Shapes in Frequency Domain
-
+%TFC
 % Half the length of the srrc pulse
 size = 10;
 
