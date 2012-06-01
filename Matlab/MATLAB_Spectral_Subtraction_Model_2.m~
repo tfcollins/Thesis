@@ -125,19 +125,19 @@ n=30;
 % length of equal i zer − 1
 delta=3;
 % u s e d e l a y <=n * l e n g t h ( b )
-p=length ( x_SS_data )- delta ;
+p=length ( r )- delta ;
 R=toeplitz(r(n+1:p),r(n+1:-1:1));
 % b u i l d m a tr i x R
-S=data( n+1-delta:p-delta)' ;
+S=x_SS_data( n+1-delta:p-delta)' ;
 % and v e c t o r S
 f=inv(R'*R)*R'* S;
 % calculate equalizer f
 Jmin=S'*S-S'*R*inv(R'*R)*R'*S;
 % Jmin f o r t h i s f and d e l t a
-x_SS_data=filter(f,1,x_SS_data) ;
+y=filter(f,1,r) ;
 
 
-break
+
 
 numErrors = 0;
 
