@@ -1,13 +1,13 @@
 %Spectral Subtraction Implementation Using Pulse Shapes in Frequency Domain
 %TFC
 % Half the length of the srrc pulse
-size = 10;
+size_d = 10;
 
 % amount of information to be sent
 dataLength = 4e3;
 
 % the signal to be transmitted
-data = 2*rand(dataLength,1)-1;
+data = 2*randint(dataLength,1)-1;
 data2 = randi([-3,3], dataLength,1);
 
 % upsamp_data is the signal after it has ben upsampled by 10
@@ -18,7 +18,7 @@ samples = 10;   % Number of samples
 Beta_rolloff=.5;    % roll off factor for the srrc pulse
 
 % pulse_srrc is the srrc pulse
-pulse_srrc = 10*srrc(size,Beta_rolloff,samples);
+pulse_srrc = 10*srrc(size_d,Beta_rolloff,samples);
 
 % x_data is the signal convolved with the pulse shape
 x_data = conv(pulse_srrc,upsamp_data);
@@ -30,7 +30,7 @@ t = 1/Fs:1/Fs:length(x_data)/Fs;
 x_Modul = x_data.*cos(2*pi*t*fo1)';
 
 % pulse_hamming is a hamming pulse in the time domain
-pulse_hamming = hamming(size*samples*2+1);
+pulse_hamming = hamming(size_d*samples*2+1);
 
 % y_data is the interfering signal
 y_data = conv(pulse_srrc,upsamp_data2);
@@ -67,6 +67,53 @@ Omega = angle(fft(x_Modul,precision));
 Y_psd = abs(Y_fft);
 M_psd = abs(M_fft);
 
+
+%Plots
+power=4;
+figure(3)
+subplot(4,1,1)
+plot(abs(fft(EST_y_Modul*power)));
+ylim([0 10000]);
+subplot(4,1,2)
+plot(abs(fft(y_Modul)));
+ylim([0 10000]);
+subplot(4,1,3)
+plot(abs(fft(y_Modul))-abs(fft(EST_y_Modul*power)),'r');
+ylim([0 10000]);
+
+figure(4)
+plot(abs(fft(y_Modul)));
+hold on;
+plot(abs(fft(EST_y_Modul*power)),'r');
+hold off;
+figure(5)
+%plot(cumsum(abs(fft(y_Modul))-abs(fft(EST_y_Modul*power))),'g');
+l=abs(fft(y_Modul));
+l2=abs(fft(EST_y_Modul*power));
+
+M=11;%Taps
+y=zeros(1,length(l));
+for i=(M-1)/2+1:length(l)-(M-1)/2
+    y(i)=0;
+    for k=-(M-1)/2:(M-1)/2
+        y(i)=y(i)+l(i+k);
+    end
+    y(i)=y(i)/M;
+end
+M=11;%Taps
+y2=zeros(1,length(l));
+for i=(M-1)/2+1:length(l)-(M-1)/2
+    y2(i)=0;
+    for k=-(M-1)/2:(M-1)/2
+        y2(i)=y(i)+l2(i+k);
+    end
+    y2(i)=y(i)/M;
+end
+
+
+plot(l-l2);
+break;
+
 % Alpha and Beta are the values for the musical noise
 Alpha_MN = 30;  % values > 10
 Beta_MN = 0.2; % values betweeen 0.05 and 0.2;
@@ -88,13 +135,10 @@ for i = 1:length(X_EST_psd)
 end
 
 
-figure(3)
-subplot(3,1,1)
-plot(abs(fft(EST_y_Modul)));
-subplot(3,1,2)
-plot(abs(fft(y_Modul)));
-subplot(3,1,3)
-plot(abs(fft(y_Modul)-fft(EST_y_Modul)));
+subplot(4,1,4)
+plot(X_EST_psd);
+ylim([0 10000]);
+break
 
 % Here X_SS is converted back into the frequency domain and time domain
 X_fft = (X_EST_psd).*exp(1i*Omega);
@@ -105,6 +149,8 @@ x_SS = ifft(X_fft,precision);
 % The signal is modulated back down to base band
 t2 = 1/Fs:1/Fs:length(x_SS)/Fs;
 X_BB = 2*x_SS.*cos(2*pi*t2*fo1)';
+
+
 
 % A filter is applied to remove any unwanted information outside the
 % desired signal
@@ -122,12 +168,13 @@ x_SS_data = 2*downsample(conv(X_filt, pulse_srrc),10)/100;
 %Equalize
 % output o f channel
 n=30;
-% length of equal i zer âˆ’ 1
-delta=3;
+% length of equalizer -ˆ’ 1
+delta=30;
 % u s e d e l a y <=n * l e n g t h ( b )
-p=length ( x_SS_data )- delta ;
-R=toeplitz(r(n+1:p),r(n+1:-1:1));
+p=length ( data )- delta ;
+R=toeplitz(x_SS_data(n+1:p),x_SS_data(n+1:-1:1));
 % b u i l d m a tr i x R
+data=data';
 S=data( n+1-delta:p-delta)' ;
 % and v e c t o r S
 f=inv(R'*R)*R'* S;
@@ -137,7 +184,7 @@ Jmin=S'*S-S'*R*inv(R'*R)*R'*S;
 x_SS_data=filter(f,1,x_SS_data) ;
 
 
-break
+
 
 numErrors = 0;
 
@@ -152,7 +199,7 @@ for i=51:length(data)+50
     end
 end
 
-BitError = numErrors/length(data);
+BitError = numErrors/length(data)
 
 
 % Here the process is plotted
@@ -175,7 +222,7 @@ title('Time Domain Data w/ Pulse Shape');
 
 % This figure shows the retrieved signal in blue and the orriginal in red
 figure(2)
-plot(data,'r.')
+plot(data,'r*')
 hold on
 plot(real(x_SS_data(51:dataLength+50)),'.')
 title('Comparison of Original and Retrieved Data');
