@@ -105,9 +105,6 @@ X_psd = abs(X_fft);
 
 
 
-
-
-
 X_fft = (X_psd).*exp(1i*Omega);
 x_SS = ifft(X_fft,precision);
 
