@@ -6,7 +6,7 @@ setup weekly meeting
 1.) Zero Forcing Equalizers, MMSE Equalizers (Dont really work with colored noise)
 2.) Started building the system around the Bliss Models, without USRP
 3.) Waiting on Stuff from Ben Hillburn
-4.) Antss Boards???
+4.) Antss Boards???--DONE
 5.) Looking at method of minimizing differential correlation matrix through the use of Lagrange Multipliers
 -iterative fixed point rule
 
