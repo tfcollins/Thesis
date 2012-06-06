@@ -8,11 +8,26 @@ dataLength = 4e3;
 
 % the signal to be transmitted
 data = 2*randint(dataLength,1)-1;
+
+%Insert Training sequence
+preamble=[1 1 1 1 0 0 1 1 1 1];
+data_temp=[];
+for i=1:length(data)
+    if mod(i,100)==0
+        data_temp=[data_temp preamble];
+    end
+    data_temp=[data_temp data(i)];
+end
+data=data_temp';
+dataLength=length(data);
+
+%Dummy data
 data2 = randi([-3,3], dataLength,1);
 
 % upsamp_data is the signal after it has ben upsampled by 10
 upsamp_data = upsample(data,10);
 upsamp_data2 = upsample(data2,10);
+
 % square root raised cosine pulse in the time domain
 samples = 10;   % Number of samples
 Beta_rolloff=.5;    % roll off factor for the srrc pulse
@@ -159,26 +174,30 @@ X_filt = filter(h,1,X_BB);
 x_SS_data = 2*downsample(conv(X_filt, pulse_srrc),10)/100;
 
 
-%Equalize
-% output o f channel
-n=30;
-% length of equalizer -ˆ’ 1
-delta=30;
-% u s e d e l a y <=n * l e n g t h ( b )
-p=length ( data )- delta ;
-R=toeplitz(x_SS_data(n+1:p),x_SS_data(n+1:-1:1));
-% b u i l d m a tr i x R
-data=data';
-S=data( n+1-delta:p-delta)' ;
-% and v e c t o r S
-f=inv(R'*R)*R'* S;
-% calculate equalizer f
-Jmin=S'*S-S'*R*inv(R'*R)*R'*S;
-% Jmin f o r t h i s f and d e l t a
-%x_SS_data=filter(f,1,x_SS_data) ;
+% %Equalize
+% % output o f channel
+% n=30;
+% % length of equalizer -ˆ’ 1
+% delta=30;
+% % u s e d e l a y <=n * l e n g t h ( b )
+% p=length ( data )- delta ;
+% R=toeplitz(x_SS_data(n+1:p),x_SS_data(n+1:-1:1));
+% % b u i l d m a tr i x R
+% data=data';
+% S=data( n+1-delta:p-delta)' ;
+% % and v e c t o r S
+% f=inv(R'*R)*R'* S;
+% % calculate equalizer f
+% Jmin=S'*S-S'*R*inv(R'*R)*R'*S;
+% % Jmin f o r t h i s f and d e l t a
+% %x_SS_data=filter(f,1,x_SS_data) ;
 
 
+%% Equalize
+x_SS_fft=fft(x_SS_data);
 
+plot(xcorr(abs(x_SS_fft),abs(fft(preamble))));
+break;
 
 numErrors = 0;
 
@@ -198,24 +217,26 @@ BitError = numErrors/length(data)
 
 % Here the process is plotted
 figure(1),
-subplot(5,1,1),
+subplot(5,2,1:2),
 plot(upsamp_data),
 title('Original Data');
-subplot(5,1,2),
+subplot(5,2,3:4),
 plot(abs(fft(x_Modul,precision))),
 title('Desired Signal');
-subplot(5,1,3),
+subplot(5,2,5),
 plot(M_psd),
 title('Combined Signals');
+subplot(5,2,6),
 hold on
+plot(M_psd)
 plot(abs(fft(y_Modul,precision)),'r');
-ylim([0 3000]);
+%ylim([0 3000]);
 hold off
-subplot(5,1,4),
+subplot(5,2,7:8),
 plot(X_EST_psd),%abs(X_fft)
 title('Subtracted result');
 ylim([0 4000]);
-subplot(5,1,5),
+subplot(5,2,9:10),
 hold on;
 plot(abs(fft(x_Modul,precision)));
 plot(X_EST_psd,'r');

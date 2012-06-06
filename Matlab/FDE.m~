@@ -13,7 +13,7 @@ SP.numRun=10^4; %
 %Generate random data block.
 errCount=0;
 n=10;
-SP.equalizerType='MMSE';
+SP.equalizerType='ZERO';
 numSymbols=SP.FFTsize;
 SP.channel=[1 2 1 1 0 3 4 ones(1,23)];
 H_channel=fft(SP.channel,SP.FFTsize);
