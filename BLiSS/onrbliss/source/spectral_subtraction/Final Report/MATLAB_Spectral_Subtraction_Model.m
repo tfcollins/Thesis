@@ -36,15 +36,15 @@ pulse_hamming = hamming(size*samples*2+1);
 y_data = conv(pulse_srrc,upsamp_data2);
 
 % Carrier frequency for interfering signal
-fo2 = 8e4-15e3;
+fo2 = 8e4-0e3;
 
-y_Modul = y_data.*cos(2*pi*t*fo2)';
+y_Modul = 2*y_data.*cos(2*pi*t*fo2)';
 
 % z is the combination of x_data and y_data providing the interference
 z = x_Modul+y_Modul;
 
 % Here the noise is added to the signal
-m = awgn(z,.01);
+m = awgn(z,10,'measured');
 
 % this defines the precision of the fft
 precision = 20*dataLength;
@@ -133,6 +133,9 @@ plot(abs(fft(x_Modul))),
 title('Desired Signal');
 subplot(5,1,3),
 plot(abs(M_fft)),
+hold on
+plot(abs(fft(y_Modul)),'r')
+hold off;
 title('Combined Signals');
 subplot(5,1,4),
 plot(abs(X_fft)),
