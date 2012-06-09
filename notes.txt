@@ -12,3 +12,13 @@ setup weekly meeting
 
 6.) Rauch–Tung–Striebel (RTS) Smoother, not good results
 
+
+Current Topics:
+Equalizers:
+LMS FDE Adaptive equalizers
+RLS FDE Equalizers, use training and decision directed mode
+
+Tweek example:
+http://www.mathworks.com/products/communications/demos.html?file=/products/demos/shipping/comm/commadapteq.html
+
+
