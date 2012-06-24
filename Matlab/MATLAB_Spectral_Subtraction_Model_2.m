@@ -10,7 +10,7 @@ dataLength = 4e3;
 data = 2*randint(dataLength,1)-1;
 
 %Insert Training sequence
-preamble=[1 1 1 1 0 0 1 1 1 1];
+preamble=[1 1 1 1 -1 -1 1 1 1 1];
 data_temp=[];
 for i=1:length(data)
     if mod(i,100)==0
@@ -20,6 +20,7 @@ for i=1:length(data)
 end
 data=data_temp';
 dataLength=length(data);
+
 
 %Dummy data
 data2 = randi([-3,3], dataLength,1);
@@ -177,7 +178,7 @@ x_SS_data = 2*downsample(conv(X_filt, pulse_srrc),10)/100;
 % %Equalize
 % % output o f channel
 % n=30;
-% % length of equalizer -ˆ’ 1
+% % length of equalizer -ï¿½ï¿½ 1
 % delta=30;
 % % u s e d e l a y <=n * l e n g t h ( b )
 % p=length ( data )- delta ;
@@ -194,10 +195,41 @@ x_SS_data = 2*downsample(conv(X_filt, pulse_srrc),10)/100;
 
 
 %% Equalize
-x_SS_fft=fft(x_SS_data);
+%x_SS_fft=fft(x_SS_data);
+% x_SS_data=2*(x_SS_data>0)-1;
+% pres=xcorr(x_SS_data,preamble);
+% stem(pres);
+% break;
 
-plot(xcorr(abs(x_SS_fft),abs(fft(preamble))));
-break;
+%locate error
+eq_size=10;
+f=zeros(eq_size,1);
+mu_lms=0.01;
+for i=1:length(x_SS_data)
+    if mod(i,100)==0
+        pre=x_SS_data(i:i+9);
+        pre=data(i:i+9);
+        for j=1:length(preamble)%-eq_size
+            error=preamble(j)-pre'*f;
+            f=f+mu_lms*error*pre;
+            
+        end
+        output=filter(real(f),1,x_SS_data(i:i+109));
+        output=filter(real(f),1,data(i:i+109));
+        output=2*(output>0)-1;
+        
+        %slide and check
+        err=zeros(1,eq_size);
+        for k=1:eq_size
+            err(k)=sum(abs(output(k:k+9)-preamble'));
+        end
+        break
+    end
+    
+
+    
+end
+
 
 numErrors = 0;
 
