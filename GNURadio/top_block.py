@@ -5,6 +5,8 @@
 # Generated: Thu Feb  2 14:50:46 2012
 ##################################################
 
+import gnuradio.gr.gr_threading as _threading
+
 from gnuradio import eng_notation
 from gnuradio import gr
 from gnuradio import uhd
@@ -16,6 +18,20 @@ from grc_gnuradio import wxgui as grc_wxgui
 from optparse import OptionParser
 import wx
 
+
+class top_block_runner(_threading.Thread):
+	def __init__(self, tb):
+		_threading.Thread.__init__(self)
+		self.setDaemon(1)
+		self.tb=tb
+		self.done=False
+		self.start() #start deamon
+	def run(self):
+		self.tb.run()
+		self.done = True
+
+
+
 class top_block(grc_wxgui.top_block_gui):
 
 	def __init__(self):
@@ -26,7 +42,7 @@ class top_block(grc_wxgui.top_block_gui):
 		##################################################
 		# Variables
 		##################################################
-		self.samp_rate = samp_rate = 32000
+		self.samp_rate = samp_rate = 100000 #100k
 
 		##################################################
 		# Blocks
@@ -94,6 +110,12 @@ class top_block(grc_wxgui.top_block_gui):
 if __name__ == '__main__':
 	parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
 	(options, args) = parser.parse_args()
-	tb = top_block()
-	tb.Run(True)
+#	tb = top_block()
+#	tb.Run(True)
+	tb=my_top_block_which_inherits_from_gr_top_block()
+	tb=my_top_block_runner()
+	## Now block is running
+	tb.stop()
+	## Block is done running
+	
 

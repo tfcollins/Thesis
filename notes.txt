@@ -26,3 +26,77 @@ Tweek example:
 http://www.mathworks.com/products/communications/demos.html?file=/products/demos/shipping/comm/commadapteq.html
 
 
+
+
+yellow power, V6 max voltage
+lights will go on
+
+
+900Mhz, 10 wavelengths distance between antenna's
+FSK easy, with incoherent detection
+BPSK harder,
+PAM easy too
+
+
+Jamming
+-2 tone cone jammer
+
+
+Next Steps:
+
+
+
+
+Specs:
+3 Scenarios
+1.) No interfering signals/No ONR Bliss
+-50 meter broadside transmission
+-simple txt messages
+-Visual: PSD (Spectrum Analyzer), screen of laptop, Overall Video of Robot
+
+2.) Interfering Singals/ No Bliss
+-Tone Jammer
+
+3.) Interfering/ ONR Bliss
+-Single jammer
+
+4.) Interfering/ ONR Bliss
+-Multiple signals in spectrum
+
+5.) Interfering/ ONR Bliss
+-Wideband Jammer
+-Concurrent non-intential interference
+
+----
+Video Needed:
+Explaination
+Captions
+Disclammer
+LOCATION | TIME | TEST SCENARIO | DATA
+
+-----
+
+Independent receieve channels
+-SS Both
+-Align signals
+-MRC(MIMO Recombination) signals
+-
+
+ANTSS
+-
+
+
+Bliss
+-Indepent
+
+-MRC after 
+
+
+
+
+
+
+
+
+
+

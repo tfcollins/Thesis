@@ -1,0 +1,35 @@
+ bistromath> | cinjun: sure. in gnuradio usually your main application will take values from your blocks and do something intelligent with them. so the best approach is 
+                       probably to have your top-level block read the PLL output and issue commands to the USRP based on that
+		       [15:34] < bistromath> although, in SDR the easier approach is to just shift the frequency in software using a frequency-xlating FIR filter or add/subtract a constant from a 
+		                             frequency-demodulated output.
+					     [15:37] <      cinjun> | bistromath: So normally I would just make a flow-graph in my top-block and just use the run method.  I guess a good question would be, when I execute the 
+					               run command were does the code start executing from?
+						       [15:37] < bistromath> when you hit run, all it does is start gnuradio's scheduler calling work functions. so your source starts producing samples, and your sink starts consuming 
+						                             them. all this happens outside of any top-level code; the top block just strings together hier blocks.
+									     [15:38] < bistromath> if you want a separate main application, the way to do it is to start the top block running in its own thread and then interact with it from your main 
+									                           application once it's running
+												   [15:40] < bistromath> so: create a class for your top block which inherits from a Python thread class, instantiate it from your main application and set it running, and then 
+												                         interact with your blocks (reading frequency offset, adjusting USRP frequency) from your main app.
+															 [15:40] < bistromath> the gr-pager app does this, IIRC
+															 [15:40]            --> | phirsch [~phirsch@xdsl-89-0-163-3.netcologne.de] has joined #gnuradio
+															 [15:41] <      cinjun> | I'll take a look at gr-pager.  Thank you so much for your help
+															 [15:42] < b7500af1> Crofton|work, Crofton , ping.
+															 [15:42] < bistromath> if you want, you can do frequency correction entirely within the flowgraph instead by creating/assembling a block which outputs frequency offset, (the PLL 
+															                       freq detect block will do this), suitably low-pass filtering it, and then feeding that offset (multiplied by -1) to a VCO block which is then mixed with your 
+																	                             incoming signal.
+																				     [15:42] < bistromath> if that makes any sense.
+																				     [15:43] < bistromath> in a PSK/FSK system you can instead use a subtract block and subtract from the output of your quadrature demod block.
+																				     [15:43] < bistromath> instead of mixing and using a vco
+																				     [15:45] <      cinjun> | I was just going to correct the usrp's center frequency instead of mixing again
+																				     [15:49] <      cinjun> | The PLL freq detect block will give my the center freq, so I can just feed that back
+																				     [15:51] < bistromath> yep
+																				     [15:52] < bistromath> you will have to get the data from that block into the main app though
+																				     [15:52] < bistromath> using a vector sink is the easiest way
+																				     [15:53]            <-- | viktorivan [~ivan@189.222.216.5.dsl.dyn.telnor.net] has quit (Read error: Connection reset by peer)
+																				     [15:54] <      cinjun> | Do you lowpass from the PLL for averaging?
+																				     [15:56]            --> | ve7it [~LawrenceG@S0106001c10b7770f.pk.shawcable.net] has joined #gnuradio
+																				     [15:56]            --> | _Ethan_ [~imacrack@236.pool85-54-21.dynamic.orange.es] has joined #gnuradio
+																				     [15:56] < _Ethan_> gm
+																				     [15:59] < bistromath> | cinjun: yes, filter to your loop rate, which should be << the data rate or else you're going to have a bad time
+																				     [16:01]            --> | viktorivan [~ivan@189.222.216.5.dsl.dyn.telnor.net] has joined #gnuradio
+																				     [16:01] <      cinjun> | I was just planning on using a delay so the updates dont kill it

@@ -1,0 +1,18 @@
+[18:10] < bistromath> class top_block_runner(_threading.Thread):
+[18:10] < bistromath>     def __init__(self, tb):
+[18:10] < bistromath>         _threading.Thread.__init__(self)
+[18:10] < bistromath>         self.setDaemon(1)
+[18:10] < bistromath>         self.tb = tb
+[18:10] < bistromath>         self.done = False
+[18:10] < bistromath>         self.start()
+[18:10] < bistromath>     def run(self):
+[18:10] < bistromath>         self.tb.run()
+[18:10] < bistromath>         self.done = True
+[18:10] < bistromath> then invoke that class like:
+[18:10] < bistromath> tb = my_top_block_which_inherits_from_gr_top_block()
+[18:10] < bistromath> runner = top_block_runner(tb)
+[18:11] < bistromath> there you are, now your flowgraph is running
+[18:11] < bistromath> stop it with tb.stop()
+[18:12] <      cinjun> | kk
+[18:12] < bistromath> oh and:
+[18:12] < bistromath> import gnuradio.gr.gr_threading as _threading
