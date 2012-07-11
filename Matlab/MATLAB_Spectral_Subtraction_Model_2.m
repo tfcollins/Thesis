@@ -204,19 +204,22 @@ x_SS_data = 2*downsample(conv(X_filt, pulse_srrc),10)/100;
 %locate error
 eq_size=10;
 f=zeros(eq_size,1);
-mu_lms=0.01;
+mu_lms=0.01;%step size
+delay=0;%delay
 for i=1:length(x_SS_data)
     if mod(i,100)==0
         pre=x_SS_data(i:i+9);
-        pre=data(i:i+9);
-        for j=1:length(preamble)%-eq_size
-            error=preamble(j)-pre'*f;
-            f=f+mu_lms*error*pre;
-            
+        pre=data(i:i+9);%test
+        
+        for j=1:length(preamble)%eq_size
+            pre=pre(end:-1:1);pre=pre(:);
+            error=preamble(j-delay)-pre'*f;  %calculate error
+            f=f+mu_lms*error*pre;  %update equalizer coeff 
         end
+        
         output=filter(real(f),1,x_SS_data(i:i+109));
-        output=filter(real(f),1,data(i:i+109));
-        output=2*(output>0)-1;
+        output=filter(real(f),1,data(i:i+109));%test
+        output=2*(output>0)-1;%quantize
         
         %slide and check
         err=zeros(1,eq_size);
