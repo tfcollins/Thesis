@@ -94,8 +94,9 @@ Bliss
 
 
 
-
-
+------------------------------
+Issues:
+Modulator seem to upsampling data, and not downsampling on demod.  The output is vastly different than what is expected.
 
 
 

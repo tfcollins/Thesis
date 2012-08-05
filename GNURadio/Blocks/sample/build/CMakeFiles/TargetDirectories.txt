@@ -1,0 +1,10 @@
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/build/swig/CMakeFiles/_howto_swig.dir
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/build/swig/CMakeFiles/_howto_swig_doc_tag.dir
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/build/swig/CMakeFiles/_howto_swig_swig_tag.dir
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/build/lib/CMakeFiles/gnuradio-howto.dir
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/build/apps/CMakeFiles/pygen_apps_50ad4.dir
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/build/python/CMakeFiles/pygen_python_e13a4.dir
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/build/swig/CMakeFiles/pygen_swig_4e81c.dir
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/build/lib/CMakeFiles/qa_howto_square2_ff.dir
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/build/lib/CMakeFiles/qa_howto_square_ff.dir
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/build/CMakeFiles/uninstall.dir

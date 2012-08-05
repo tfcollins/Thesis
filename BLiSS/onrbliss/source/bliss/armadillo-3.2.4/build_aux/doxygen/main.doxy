@@ -1,0 +1,16 @@
+/*!
+\mainpage
+
+\htmlonly
+
+<br>
+See the associated technical report for an overview of the internal architecture:
+<br>
+<ul>
+Conrad Sanderson.
+<br>Armadillo: An Open Source C++ Linear Algebra Library for Fast Prototyping and Computationally Intensive Experiments.
+<br>Technical Report, NICTA, 2010. 
+</ul>
+
+\endhtmlonly
+*/

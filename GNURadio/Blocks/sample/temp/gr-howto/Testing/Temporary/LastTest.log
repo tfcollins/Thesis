@@ -1,0 +1,33 @@
+Start testing: Jul 13 10:05 EDT
+----------------------------------------------------------
+1/1 Testing: qa_howto
+1/1 Test: qa_howto
+Command: "/bin/sh" "/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/python/qa_howto_test.sh"
+Directory: /home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/python
+"qa_howto" start time: Jul 13 10:05 EDT
+Output:
+----------------------------------------------------------
+.F
+======================================================================
+FAIL: test_002_square2_ff (__main__.qa_howto)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/python/qa_howto.py", line 56, in test_002_square2_ff
+    self.assertFloatTuplesAlmostEqual (expected_result, result_data, 6)
+  File "/usr/local/lib/python2.7/dist-packages/gnuradio/gr_unittest.py", line 87, in assertFloatTuplesAlmostEqual
+    self.assertAlmostEqual (a[i], b[i], places, msg)
+AssertionError: 9 != 0.0 within 6 places
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.003s
+
+FAILED (failures=1)
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Failed.
+"qa_howto" end time: Jul 13 10:05 EDT
+"qa_howto" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Jul 13 10:05 EDT

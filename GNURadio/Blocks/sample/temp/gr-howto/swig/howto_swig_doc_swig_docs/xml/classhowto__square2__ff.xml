@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="classhowto__square2__ff" kind="class" prot="public">
+    <compoundname>howto_square2_ff</compoundname>
+    <includes refid="howto__square2__ff_8h" local="no">howto_square2_ff.h</includes>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="classhowto__square2__ff_1a416c317eec9d35ca8a188f4f3e9e91c3" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend __GR_ATTR_IMPORT <ref refid="howto__square2__ff_8h_1a950d80b5e8cf51085a2edc16295da5fd" kindref="member">howto_square2_ff_sptr</ref></type>
+        <definition>__GR_ATTR_IMPORT howto_square2_ff_sptr howto_make_square2_ff</definition>
+        <argsstring>()</argsstring>
+        <name>howto_make_square2_ff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/include/howto_square2_ff.h" line="38"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classhowto__square2__ff_1a6e92c82417fa37ab91f75257efc405cd" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>howto_square2_ff::howto_square2_ff</definition>
+        <argsstring>()</argsstring>
+        <name>howto_square2_ff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/include/howto_square2_ff.h" line="40"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classhowto__square2__ff_1adc73eeb47d46022cd7b91f081c12c0aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>howto_square2_ff::~howto_square2_ff</definition>
+        <argsstring>()</argsstring>
+        <name>~howto_square2_ff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/include/howto_square2_ff.h" line="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classhowto__square2__ff_1a29e6a178f3b2bc4221db3efcae959e20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int howto_square2_ff::work</definition>
+        <argsstring>(int noutput_items, gr_vector_const_void_star &amp;input_items, gr_vector_void_star &amp;output_items)</argsstring>
+        <name>work</name>
+        <param>
+          <type>int</type>
+          <declname>noutput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_const_void_star &amp;</type>
+          <declname>input_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_void_star &amp;</type>
+          <declname>output_items</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/include/howto_square2_ff.h" line="48"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>&lt;+description+&gt; </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/include/howto_square2_ff.h" line="37" bodyfile="/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/include/howto_square2_ff.h" bodystart="36" bodyend="49"/>
+    <listofallmembers>
+      <member refid="classhowto__square2__ff_1a416c317eec9d35ca8a188f4f3e9e91c3" prot="private" virt="non-virtual"><scope>howto_square2_ff</scope><name>howto_make_square2_ff</name></member>
+      <member refid="classhowto__square2__ff_1a6e92c82417fa37ab91f75257efc405cd" prot="private" virt="non-virtual"><scope>howto_square2_ff</scope><name>howto_square2_ff</name></member>
+      <member refid="classhowto__square2__ff_1a29e6a178f3b2bc4221db3efcae959e20" prot="public" virt="non-virtual"><scope>howto_square2_ff</scope><name>work</name></member>
+      <member refid="classhowto__square2__ff_1adc73eeb47d46022cd7b91f081c12c0aa" prot="public" virt="non-virtual"><scope>howto_square2_ff</scope><name>~howto_square2_ff</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

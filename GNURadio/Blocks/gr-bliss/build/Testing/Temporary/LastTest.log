@@ -1,0 +1,22 @@
+Start testing: Jul 13 10:38 EDT
+----------------------------------------------------------
+1/1 Testing: qa_howto
+1/1 Test: qa_howto
+Command: "/bin/sh" "/home/traviscollins/git/Thesis/GNURadio/Blocks/gr-bliss/build/python/qa_howto_test.sh"
+Directory: /home/traviscollins/git/Thesis/GNURadio/Blocks/gr-bliss/build/python
+"qa_howto" start time: Jul 13 10:38 EDT
+Output:
+----------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/traviscollins/git/Thesis/GNURadio/Blocks/gr-bliss/python/qa_bliss.py", line 5, in <module>
+    import howto_swig
+ImportError: No module named howto_swig
+<end of output>
+Test time =   0.15 sec
+----------------------------------------------------------
+Test Failed.
+"qa_howto" end time: Jul 13 10:38 EDT
+"qa_howto" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Jul 13 10:38 EDT

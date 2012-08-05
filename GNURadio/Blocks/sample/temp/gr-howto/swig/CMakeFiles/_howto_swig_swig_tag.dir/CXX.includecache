@@ -1,0 +1,10 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/swig/_howto_swig_swig_tag.cpp
+

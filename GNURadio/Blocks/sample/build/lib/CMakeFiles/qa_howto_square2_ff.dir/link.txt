@@ -1,0 +1,1 @@
+/usr/bin/c++   -O3 -DNDEBUG    CMakeFiles/qa_howto_square2_ff.dir/qa_howto_square2_ff.cc.o  -o qa_howto_square2_ff -rdynamic libgnuradio-howto.so -lboost_unit_test_framework-mt /usr/local/lib/libgruel.so /usr/local/lib/libgnuradio-core.so -Wl,-rpath,/home/traviscollins/git/gnuradio/gr-howto-write-a-block/build/lib:/usr/local/lib 

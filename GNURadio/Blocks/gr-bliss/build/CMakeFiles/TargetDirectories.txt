@@ -1,0 +1,8 @@
+/home/traviscollins/git/Thesis/GNURadio/Blocks/gr-bliss/build/swig/CMakeFiles/_bliss_swig.dir
+/home/traviscollins/git/Thesis/GNURadio/Blocks/gr-bliss/build/swig/CMakeFiles/_bliss_swig_doc_tag.dir
+/home/traviscollins/git/Thesis/GNURadio/Blocks/gr-bliss/build/swig/CMakeFiles/_bliss_swig_swig_tag.dir
+/home/traviscollins/git/Thesis/GNURadio/Blocks/gr-bliss/build/lib/CMakeFiles/gnuradio-bliss.dir
+/home/traviscollins/git/Thesis/GNURadio/Blocks/gr-bliss/build/apps/CMakeFiles/pygen_apps_9a6dd.dir
+/home/traviscollins/git/Thesis/GNURadio/Blocks/gr-bliss/build/python/CMakeFiles/pygen_python_4be3b.dir
+/home/traviscollins/git/Thesis/GNURadio/Blocks/gr-bliss/build/swig/CMakeFiles/pygen_swig_1291f.dir
+/home/traviscollins/git/Thesis/GNURadio/Blocks/gr-bliss/build/CMakeFiles/uninstall.dir

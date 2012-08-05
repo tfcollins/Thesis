@@ -1,0 +1,8 @@
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/swig/CMakeFiles/_howto_swig.dir
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/swig/CMakeFiles/_howto_swig_doc_tag.dir
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/swig/CMakeFiles/_howto_swig_swig_tag.dir
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/lib/CMakeFiles/gnuradio-howto.dir
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/apps/CMakeFiles/pygen_apps_9a6dd.dir
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/python/CMakeFiles/pygen_python_329f7.dir
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/swig/CMakeFiles/pygen_swig_361a1.dir
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/CMakeFiles/uninstall.dir

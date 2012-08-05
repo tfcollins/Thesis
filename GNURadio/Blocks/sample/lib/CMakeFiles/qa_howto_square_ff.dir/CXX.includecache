@@ -1,0 +1,12 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/traviscollins/git/gnuradio/gr-howto-write-a-block/lib/qa_howto_square_ff.cc
+boost/test/unit_test.hpp
+-
+

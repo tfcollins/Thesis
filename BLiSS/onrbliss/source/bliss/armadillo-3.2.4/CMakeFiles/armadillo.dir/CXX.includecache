@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/traviscollins/git/Thesis/BLiSS/onrbliss/source/bliss/armadillo-3.2.4/src/wrap_libs.cpp
+armadillo_bits/config.hpp
+/home/traviscollins/git/Thesis/BLiSS/onrbliss/source/bliss/armadillo-3.2.4/src/armadillo_bits/config.hpp
+armadillo_bits/typedef_blas_int.hpp
+/home/traviscollins/git/Thesis/BLiSS/onrbliss/source/bliss/armadillo-3.2.4/src/armadillo_bits/typedef_blas_int.hpp
+armadillo_bits/compiler_setup.hpp
+/home/traviscollins/git/Thesis/BLiSS/onrbliss/source/bliss/armadillo-3.2.4/src/armadillo_bits/compiler_setup.hpp
+armadillo_bits/undefine_conflicts.hpp
+/home/traviscollins/git/Thesis/BLiSS/onrbliss/source/bliss/armadillo-3.2.4/src/armadillo_bits/undefine_conflicts.hpp
+armadillo_bits/include_atlas.hpp
+/home/traviscollins/git/Thesis/BLiSS/onrbliss/source/bliss/armadillo-3.2.4/src/armadillo_bits/include_atlas.hpp
+armadillo_bits/blas_bones.hpp
+/home/traviscollins/git/Thesis/BLiSS/onrbliss/source/bliss/armadillo-3.2.4/src/armadillo_bits/blas_bones.hpp
+armadillo_bits/lapack_bones.hpp
+/home/traviscollins/git/Thesis/BLiSS/onrbliss/source/bliss/armadillo-3.2.4/src/armadillo_bits/lapack_bones.hpp
+
+include/armadillo_bits/blas_bones.hpp
+
+include/armadillo_bits/compiler_setup.hpp
+
+include/armadillo_bits/config.hpp
+
+include/armadillo_bits/include_atlas.hpp
+cblas.h
+-
+clapack.h
+-
+
+include/armadillo_bits/lapack_bones.hpp
+
+include/armadillo_bits/typedef_blas_int.hpp
+
+include/armadillo_bits/undefine_conflicts.hpp
+

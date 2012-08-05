@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="dir_42fe517fe6486ad15e53b334b8c78aa7" kind="dir">
+    <compoundname>/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/include/</compoundname>
+    <innerfile refid="howto__api_8h">howto_api.h</innerfile>
+    <innerfile refid="howto__square2__ff_8h">howto_square2_ff.h</innerfile>
+    <innerfile refid="howto__square__ff_8h">howto_square_ff.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/traviscollins/git/gnuradio/gr-howto-write-a-block/temp/gr-howto/include/"/>
+  </compounddef>
+</doxygen>

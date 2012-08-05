@@ -81,6 +81,8 @@ int main(){
 			dftmtx >> dftPImag(i,j);
 		}
 	}
+
+//////////////////////////////////////////////////////////////////
 	// construct PxP dft matrix
 	dftP=cx_mat(dftPReal,dftPImag);
 
@@ -113,7 +115,7 @@ int main(){
 	vec err_h_sq;
 
 	// construct training vector
-	int k=P;
+	int k=P;  //P=8
 	for(i=0;i<P;i++){
 		c_P(i)=complex<float>(((i+1)/(float)P),-(k/(float)P));
 		k--;
@@ -122,14 +124,15 @@ int main(){
 	c=c/(ones<vec>(N)*(sqrt(trans(c)*c)));
 
 	// NxN DFT matrix
-	F=(1/sqrt(N))*dftN;
+	F=(1/sqrt(N))*dftN; // dftN==Vandamon Matrix
+	cout<<F<<endl;
 
 	// frequency signal and training vectors
 	x_hat=F*data;
 	c_hat=F*sqrt(pow_c*SNR)*c;
 
 	// PxP DFT matrix
-	F_P=dftP/P;
+	F_P=dftP/P;  // Create Vandamon Matrix
 
 	// dividing out training from signal to get data
 	int x=0;
@@ -139,7 +142,7 @@ int main(){
 	}
 
 	// channel estimate
-	h_hat=trans(F_P)*d;
+	h_hat=trans(F_P)*d;  //Put 
 
 	// calculate sqaured error
 	err_h=h-strans(h_hat);
