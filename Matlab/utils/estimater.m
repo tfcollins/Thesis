@@ -16,10 +16,6 @@ cor=cor(length(r(1:500))-length(prea):end);
 
 first=indexs(1);
 start=first-length(prea);
-[r(start:start+length(prea)-1) prea];
-%offset=first-10;
-%[abs(r(10+3:50+3)) prea]
-
 r=r(start:start+length(prea)-1)';
 s=prea';
 
@@ -43,32 +39,46 @@ s=prea';
 
 %equalizer2
 n=9;                               % length of equalizer - 1
+%n=50;
 delta=0;                           % use delay <=n*length(b)
 p=length(r)-delta;
 R=toeplitz(r(n+1:p),r(n+1:-1:1));  % build matrix R
 S=s(n+1-delta:p-delta)';           % and vector S
-f=inv(R'*R)*R'*S                   % calculate equalizer f
-Jmin=S'*S-S'*R*inv(R'*R)*R'*S      % Jmin for this f and delta
+f=inv(R'*R)*R'*S;                   % calculate equalizer f
+Jmin=S'*S-S'*R*inv(R'*R)*R'*S;      % Jmin for this f and delta
 y=filter(f,1,r);                   % equalizer is a filter
 
+%Filter without filter command
+output=zeros(1,length(y));
+index=1;
+for i=1:length(r)-n
+    rr=r(i:i+length(f)-1);
+    output(index)=f'*rr';
+    index=index+1;
+end
+    
+
+%Calculate Error
+error=sum(abs(y-prea'));
+error=sum(abs(output(1:end-n)-prea(1:end-n)'));
+h=conv(f,[1 zeros(1,length(prea)-n-1)]);
+x=conv(r,h); %Extend channel size
+%remove padding
+x=x(1:length(prea));
+error=sum(abs(x-prea'));
 
 
-[r' yt' prea abs(yt'-prea)]
 
-break
+disp(['Error: ',num2str(error)]);
+
+%MRC
+% equalization maximal ratio combining
+
+
+%for i=1:length(f):length(r)-mod(length(r),length(f));  
+%   yHat =[yHat  sum(conj(f).*r(i:i+length(f)-1),1)./sum(f.*conj(f),1)]; 
+%end
 
 
 
 
-
-r=r(1:1000);
-s=s(1:1000);
-
-fft_post=fft(r);
-fft_pre=fft(s);
-
-H_F=fft_post./fft_pre;
-
-h=ifft(H_F);
-
-estimate=ifft(H_F./fft_post);
