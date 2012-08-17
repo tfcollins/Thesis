@@ -73,7 +73,7 @@ disp(['Error: ',num2str(error)]);
 
 %MRC
 % equalization maximal ratio combining
-
+result=sum(output,2);
 
 %for i=1:length(f):length(r)-mod(length(r),length(f));  
 %   yHat =[yHat  sum(conj(f).*r(i:i+length(f)-1),1)./sum(f.*conj(f),1)]; 
