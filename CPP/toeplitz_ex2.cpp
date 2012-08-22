@@ -11,8 +11,9 @@ int main(){
 	vec dataReal(N);
 	vec dataImag(N);
 	cx_vec data(N);
-	cx_vec r1(N);
-	cx_vec r2(N);
+	//cx_vec r1(N);
+	//cx_vec r2(N);
+
 
 	// import real part of data
 	int h;
@@ -27,68 +28,64 @@ int main(){
 	data=cx_vec(dataReal,dataImag);
 
 
-
-	int n=3;
+	int n=2; //Number of equalizer taps
 	int delta=0;//delay
 	int p=N-delta;
-
 	int index=0;
 	int i;
-	for (i=n+1;i<p;i++){
+
+	cx_vec r1(p-n);
+	for (i=n;i<p;i++){
 		r1(index)=data(i);	
 		index++;
 	}
-	cout<<"Reached"<<endl;
-	index=0;
+
+	index=0;//reset
 	int j;
-	for (j=n+1;j>-1;j--){
+	cx_vec r2(n+1);
+	for (j=n;j>-1;j--){
 		r2(index)=data(j);	
 		index++;
 	}
-	cout<<"Reached"<<endl;
-	cout<<r1<<endl;
-	cout<<r2<<endl;
 
 	mat X = toeplitz(real(r1),real(r2));
 	mat Y = toeplitz(imag(r1),imag(r2));
-//	mat Y = toeplitz(dataReal,dataImag);
-	cx_mat Z(N,N);
-	Z=cx_mat(X,Y);
+	cx_mat R(N,N);
+	R=cx_mat(X,Y); //Received vector 
 	
-	//TRAINING VECTOR
-        fstream sig("training.txt");
+	/////////////TRAINING VECTOR/////////////
+        fstream sig2("training.txt");
         vec dataReal_t(N);
         vec dataImag_t(N);
         cx_vec data_t(N);
-        cx_vec S(N);
 
         // import real part of data
-        int h;
+        //int h;
         for(h=0;h<N;h++){
-                sig >> dataReal_t(h);
+                sig2 >> dataReal_t(h);
         }
         // import imaginary part of data
         for(h=0;h<N;h++){
-                sig >> dataImag_t(h);
+                sig2 >> dataImag_t(h);
         }
         data_t=cx_vec(dataReal_t,dataImag_t);
+	cout<<"Data_t: "<<data_t<<endl;
         // construct training vector
 	int u=0;
-	for (u=n+1;u<p-n+1;u++){
+	index=0;
+        cx_vec S(p-n);//p=N
+	for (u=n;u<p-n+1;u++){
 		S(index)=data_t(u);
 		index++;
 	}
-	S=S.t;
-
+	//S=S.t();//transpose
 	//Channel Estimate
-	cx_vec F=inv(Z.t*Z)*Z.t*S;
-	cout<<F<<endl;
+	cout<<"R: "<<R<<endl;
+	cout<<"S: "<<S<<endl;
+	cx_vec F=inv(R.t()*R)*R.t()*S;
+	cout<<"Channel Estimate: "<<F<<endl;
 
 	//mat Y = circ_toeplitz(A);
-//	cout<<X<<endl;
-	cout<<X<<endl;
-	cout<<Y<<endl;
-	cout<<Z<<endl;
 
 	return 0;
 }
