@@ -72,6 +72,7 @@ for ii=1:length(SNR_lin)
     
         % transmitted signal obtained by adding training and data with appropriate powers
         s = sqrt(pow_w*SNR_lin(ii))*(eye(N)-J)*w + sqrt(pow_c*SNR_lin(ii))*c;
+        % w=data c=training
         
         % "transmit" the data by multiplying with channel and adding noise
         x=H*s+v;
